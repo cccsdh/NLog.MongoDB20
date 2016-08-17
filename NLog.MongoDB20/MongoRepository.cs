@@ -31,10 +31,10 @@ namespace NLog.MongoDB20
                 //Not really happy with this implementation in order to determine if a collection exists.
                 bool collectionExists = false;
 
-                using (var cursor = db.ListCollectionsAsync().Result)
+                using (var cursor = db.ListCollections())
                 {
-                    var collections = cursor.ToListAsync();
-                    foreach (var collection in collections.Result)
+                    var collections = cursor.ToList();
+                    foreach (var collection in collections)
                     {
                         if (collection["name"] == collectionName)
                         {
@@ -56,7 +56,7 @@ namespace NLog.MongoDB20
                     if (collectionMaxItems.HasValue)
 						collectionOptions.MaxDocuments =collectionMaxItems.Value;
 
-                    db.CreateCollectionAsync(collectionName, collectionOptions);
+                    db.CreateCollection(collectionName, collectionOptions);
 
 
                 }
@@ -66,7 +66,7 @@ namespace NLog.MongoDB20
 
         }
 
-	    public async void Insert(string collectionName, BsonDocument item)
+	    public void Insert(string collectionName, BsonDocument item)
 		{
 			var db = _client.GetDatabase(_database);
 
@@ -78,7 +78,7 @@ namespace NLog.MongoDB20
 			else
 				collection = db.GetCollection<BsonDocument>(collectionName);
 
-            await collection.InsertOneAsync(item);
+            collection.InsertOne(item);
         }
 
 		public void Dispose()
