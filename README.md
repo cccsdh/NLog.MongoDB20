@@ -1,5 +1,14 @@
-NLog.MongoDB20 Target
+NLog.MongoDB20 Target 
 =============
+
+### You should check out [nlog mongo](https://github.com/loresoft/NLog.Mongo) as it has kept up with the latest MongoDB driver.
+
+
+
+=============
+### This target has not kept up with recent changes and is not being actively maintained...
+
+
 The NLog.MongoDB20 target allows you to use a MongoDB instance as the persistence mechanism for NLog.
 
 You can define which database and server to use, but by default a collection will be created for each "Logger" you use.
